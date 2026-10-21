@@ -21,7 +21,7 @@ Appen ska kunna:
                          │
           ┌──────────────┼──────────────┐
           ↓              ↓              ↓
-      PERSON 1         Nejma         Oranus
+      Kevin         Nejma         Oranus
 
         API            PANDAS          FLASK
          │               │               │
