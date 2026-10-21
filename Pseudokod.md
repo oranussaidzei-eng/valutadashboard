@@ -13,3 +13,28 @@ Appen ska kunna:
 5. Beräkna och visa resultatet, t.ex. 1000 SEK = 305 TND.
 6. Hämta historiska valutakurser och visa utvecklingen i en graf.
 7. Presentera informationen tydligt i en Flask-dashboard.
+
+
+
+
+                 CURRENCY DASHBOARD
+                         │
+          ┌──────────────┼──────────────┐
+          ↓              ↓              ↓
+      PERSON 1        PERSON 2       PERSON 3
+
+        API            PANDAS          FLASK
+         │               │               │
+ currency_api.py     analysis.py       app.py
+         │               │               │
+      JSON          beräkningar       Jinja
+                         │               │
+                      groupby          Plotly
+          └──────────────┼──────────────┘
+                         ↓
+                  KOPPLA IHOP ALLT
+
+
+
+
+                  
