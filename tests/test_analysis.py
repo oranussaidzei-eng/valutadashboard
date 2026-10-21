@@ -19,3 +19,4 @@ def test_create_dataframe():
     assert len(df) == 3
     assert "date" in df.columns
     assert "rate" in df.columns
+
