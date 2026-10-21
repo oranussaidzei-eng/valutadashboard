@@ -21,7 +21,7 @@ Appen ska kunna:
                          │
           ┌──────────────┼──────────────┐
           ↓              ↓              ↓
-      PERSON 1        Nejma         PERSON 3
+      PERSON 1         Nejma         PERSON 3
 
         API            PANDAS          FLASK
          │               │               │
