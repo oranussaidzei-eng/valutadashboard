@@ -1,7 +1,3 @@
-
-
-
-
 Currency Dashboard
 Valutor: SEK – USD – EUR – TND – AFN – CDF
 
@@ -17,11 +13,11 @@ Appen ska kunna:
 
 
 
-                 CURRENCY DASHBOARD
+               CURRENCY DASHBOARD
                          │
           ┌──────────────┼──────────────┐
           ↓              ↓              ↓
-      Kevin         Nejma         Oranus
+    Kevin         Nejma          Oranus
 
         API            PANDAS          FLASK
          │               │               │
