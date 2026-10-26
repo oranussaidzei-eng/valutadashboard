@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Exchange Rate History</h1>
+
+<p>Historical exchange rates for the selected currency pair.</p>
+
+{{ chart | safe }}
+
+<h2>Monthly Average Exchange Rate</h2>
+
+{{ monthly_chart | safe }}
+
+{% endblock %}
