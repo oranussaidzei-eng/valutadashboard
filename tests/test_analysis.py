@@ -1,14 +1,14 @@
 # Tests for analysis.py
 
-
 import pandas as pd
 
-from currency_dashboard.analysis import create_dataframe, percentage_change
 from currency_dashboard.analysis import (
     create_dataframe,
     percentage_change,
     monthly_average,
+    highest_and_lowest_rate,
 )
+
 
 def test_create_dataframe():
     historical_data = {
@@ -23,7 +23,6 @@ def test_create_dataframe():
     assert len(df) == 3
     assert "date" in df.columns
     assert "rate" in df.columns
-
 
 
 def test_percentage_change():
@@ -41,11 +40,25 @@ def test_monthly_average():
         "2026-01-15": 1.60,
         "2026-02-01": 1.70,
         "2026-02-15": 1.80,
-
     }
 
-    df= create_dataframe(historical_data)
+    df = create_dataframe(historical_data)
     result = monthly_average(df)
 
     assert result.loc["2026-01"] == 1.55
     assert result.loc["2026-02"] == 1.75
+
+
+def test_highest_and_lowest_rate():
+    historical_data = {
+        "2026-01-01": 1.50,
+        "2026-01-02": 1.75,
+        "2026-01-03": 1.40,
+    }
+
+    df = create_dataframe(historical_data)
+
+    highest, lowest = highest_and_lowest_rate(df)
+
+    assert highest == 1.75
+    assert lowest == 1.40
