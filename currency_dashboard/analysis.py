@@ -21,3 +21,9 @@ def monthly_average(df):
     monthly = df.groupby("month")["rate"].mean()
 
     return monthly
+
+def highest_and_lowest_rate(df):
+    highest = df["rate"].max()
+    lowest = df["rate"].min()
+
+    return highest, lowest
