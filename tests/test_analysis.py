@@ -62,3 +62,12 @@ def test_highest_and_lowest_rate():
 
     assert highest == 1.75
     assert lowest == 1.40
+
+
+def test_percentage_change_decrease():
+    start_rate = 2.00
+    end_rate = 1.80
+
+    result = percentage_change(start_rate, end_rate)
+
+    assert result == -10.0
