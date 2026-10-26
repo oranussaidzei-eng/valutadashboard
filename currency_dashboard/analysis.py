@@ -7,3 +7,17 @@ def create_dataframe(historical_data):
     )
 
     return df 
+
+
+
+def percentage_change(start_rate, end_rate):
+    change = ((end_rate - start_rate) / start_rate) * 100
+    return round(change, 2)
+
+def monthly_average(df):
+    df["date"] = pd.to_datetime(df["date"])
+    df["month"] = df["date"].dt.to_period("M").astype(str)
+
+    monthly = df.groupby("month")["rate"].mean()
+
+    return monthly
