@@ -22,7 +22,8 @@ def home():
             "home.html",
             from_currency=from_currency,
             to_currency=to_currency,
-            amount=amount
+            amount=amount,
+            show_result=True
         )
 
     return render_template("home.html")
@@ -30,6 +31,9 @@ def home():
 
 @app.route("/history")
 def history():
+    from_currency = request.args.get("from", "SEK")
+    to_currency = request.args.get("to", "EUR")
+
     data = {
         "date": [
             "2026-01-01",
@@ -59,7 +63,9 @@ def history():
     return render_template(
         "history.html",
         chart=chart,
-        monthly_chart=monthly_chart
+        monthly_chart=monthly_chart,
+        from_currency=from_currency,
+        to_currency=to_currency
     )
 
 

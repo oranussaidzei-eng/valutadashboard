@@ -6,38 +6,56 @@
 
 <p>Select currencies and enter an amount to convert.</p>
 
-<form method="POST">
+<form method="POST" action="/">
 
     <label for="from_currency">From:</label>
     <select name="from_currency" id="from_currency">
-        <option value="SEK">SEK</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="TND">TND</option>
-        <option value="AFN">AFN</option>
-        <option value="CDF">CDF</option>
+        <option value="SEK" {% if from_currency == "SEK" %}selected{% endif %}>SEK</option>
+        <option value="USD" {% if from_currency == "USD" %}selected{% endif %}>USD</option>
+        <option value="EUR" {% if from_currency == "EUR" %}selected{% endif %}>EUR</option>
+        <option value="TND" {% if from_currency == "TND" %}selected{% endif %}>TND</option>
+        <option value="AFN" {% if from_currency == "AFN" %}selected{% endif %}>AFN</option>
+        <option value="CDF" {% if from_currency == "CDF" %}selected{% endif %}>CDF</option>
     </select>
 
     <label for="to_currency">To:</label>
     <select name="to_currency" id="to_currency">
-        <option value="SEK">SEK</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="TND">TND</option>
-        <option value="AFN">AFN</option>
-        <option value="CDF">CDF</option>
+        <option value="SEK" {% if to_currency == "SEK" %}selected{% endif %}>SEK</option>
+        <option value="USD" {% if to_currency == "USD" %}selected{% endif %}>USD</option>
+        <option value="EUR" {% if to_currency == "EUR" %}selected{% endif %}>EUR</option>
+        <option value="TND" {% if to_currency == "TND" %}selected{% endif %}>TND</option>
+        <option value="AFN" {% if to_currency == "AFN" %}selected{% endif %}>AFN</option>
+        <option value="CDF" {% if to_currency == "CDF" %}selected{% endif %}>CDF</option>
     </select>
 
     <label for="amount">Amount:</label>
-    <input type="number" name="amount" id="amount" step="0.01" required>
+    <input
+        type="number"
+        name="amount"
+        id="amount"
+        step="0.01"
+        value="{{ amount if amount else '' }}"
+        required
+    >
 
     <button type="submit">Convert</button>
 
 </form>
 
-{% if amount %}
+{% if show_result %}
+
     <h3>Your selection</h3>
-    <p>{{ amount }} {{ from_currency }} → {{ to_currency }}</p>
+
+    <p>
+        {{ amount }} {{ from_currency }}
+        →
+        {{ to_currency }}
+    </p>
+
+    <a href="/history?from={{ from_currency }}&to={{ to_currency }}">
+        View exchange rate history
+    </a>
+
 {% endif %}
 
 {% endblock %}

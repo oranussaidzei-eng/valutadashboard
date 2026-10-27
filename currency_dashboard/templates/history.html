@@ -4,7 +4,12 @@
 
 <h1>Exchange Rate History</h1>
 
-<p>Historical exchange rates for the selected currency pair.</p>
+<h2>{{ from_currency }} → {{ to_currency }}</h2>
+
+<p>
+    Historical exchange rates from
+    {{ from_currency }} to {{ to_currency }}.
+</p>
 
 {{ chart | safe }}
 
