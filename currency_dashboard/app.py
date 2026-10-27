@@ -10,15 +10,27 @@ def index():
 
 @app.route("/history", methods=["POST"])
 def history():
-    from_currency = request.form.get("from_currency")
-    to_currency = request.form.get("to_currency")
-    amount = request.form.get("amount")
+    fran_valuta = request.form.get("fran_valuta")
+    till_valuta = request.form.get("till_valuta")
+    belopp = request.form.get("belopp")
+
+    valutor = ["SEK", "USD", "EUR", "TND", "AFN", "CDF"]
+
+    if fran_valuta not in valutor or till_valuta not in valutor:
+        return render_template("error.html", fel="Välj giltiga valutor"), 400
+
+    try:
+        belopp = float(belopp)
+    except (ValueError, TypeError):
+        return render_template("error.html", fel="Ange belopp som ett tal."), 400
+
+    if belopp <= 0:
+        return render_template(
+            "error.html", fel="Beloppet måste vara större än noll."
+        ), 400
 
     return render_template(
-        "history.html",
-        from_currency=from_currency,
-        to_currency=to_currency,
-        amount=amount,
+        "history.html", fran_valuta=fran_valuta, till_valuta=till_valuta, belopp=belopp
     )
 
 

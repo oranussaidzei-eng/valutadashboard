@@ -6,26 +6,26 @@
 
 <form action="/history" method="post">
   <div class="mb-3">
-    <label for="from_currency" class="form-label">Från valuta</label>
-    <select id="from_currency" name="from_currency" class="form-select">
-      {% for currency in ["SEK", "USD", "EUR", "TND", "AFN", "CDF"] %}
-      <option value="{{ currency }}">{{ currency }}</option>
+    <label for="fran_valuta" class="form-label">Från valuta</label>
+    <select id="fran_valuta" name="fran_valuta" class="form-select">
+      {% for valuta in ["SEK", "USD", "EUR", "TND", "AFN", "CDF"] %}
+      <option value="{{ valuta }}">{{ valuta }}</option>
       {% endfor %}
     </select>
   </div>
 
   <div class="mb-3">
-    <label for="to_currency" class="form-label">Till valuta</label>
-    <select id="to_currency" name="to_currency" class="form-select">
-      {% for currency in ["SEK", "USD", "EUR", "TND", "AFN", "CDF"] %}
-      <option value="{{ currency }}">{{ currency }}</option>
+    <label for="till_valuta" class="form-label">Till valuta</label>
+    <select id="till_valuta" name="till_valuta" class="form-select">
+      {% for valuta in ["SEK", "USD", "EUR", "TND", "AFN", "CDF"] %}
+      <option value="{{ valuta }}">{{ valuta }}</option>
       {% endfor %}
     </select>
   </div>
 
   <div class="mb-3">
-    <label for="amount" class="form-label">Belopp</label>
-    <input id="amount" name="amount" type="number"
+    <label for="belopp" class="form-label">Belopp</label>
+    <input id="belopp" name="belopp" type="number"
       min="0.01" step="0.01" required class="form-control">
   </div>
 
