@@ -4,9 +4,9 @@ import pandas as pd
 
 from currency_dashboard.analysis import (
     create_dataframe,
-    percentage_change,
-    monthly_average,
     highest_and_lowest_rate,
+    monthly_average,
+    percentage_change,
 )
 
 
