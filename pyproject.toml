@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "valutadashboard"
+version = "0.1.0"
+description = "Valutadashboard med Flask, Pandas och Plotly"
+requires-python = ">=3.10"
+dependencies = [
+    "flask",
+    "requests",
+    "pandas",
+    "plotly",
+]
+
+[tool.setuptools]
+packages = ["currency_dashboard"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+currency_dashboard = ["templates/*.html", "static/*.css"]
