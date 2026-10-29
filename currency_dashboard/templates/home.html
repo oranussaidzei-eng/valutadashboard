@@ -1,61 +1,200 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
-<h2>Convert Currency</h2>
+<!-- Hero section -->
+<section class="hero">
 
-<p>Select currencies and enter an amount to convert.</p>
+    <div class="hero-content">
+        <p class="page-label">CURRENCY CONVERTER</p>
 
-<form method="POST" action="/">
+        <h1>Global currency,<br>simplified.</h1>
 
-    <label for="from_currency">From:</label>
-    <select name="from_currency" id="from_currency">
-        <option value="SEK" {% if from_currency == "SEK" %}selected{% endif %}>SEK</option>
-        <option value="USD" {% if from_currency == "USD" %}selected{% endif %}>USD</option>
-        <option value="EUR" {% if from_currency == "EUR" %}selected{% endif %}>EUR</option>
-        <option value="TND" {% if from_currency == "TND" %}selected{% endif %}>TND</option>
-        <option value="AFN" {% if from_currency == "AFN" %}selected{% endif %}>AFN</option>
-        <option value="CDF" {% if from_currency == "CDF" %}selected{% endif %}>CDF</option>
-    </select>
+        <p class="hero-text">
+            Convert currencies, explore historical rates
+            and understand market movements.
+        </p>
+    </div>
 
-    <label for="to_currency">To:</label>
-    <select name="to_currency" id="to_currency">
-        <option value="SEK" {% if to_currency == "SEK" %}selected{% endif %}>SEK</option>
-        <option value="USD" {% if to_currency == "USD" %}selected{% endif %}>USD</option>
-        <option value="EUR" {% if to_currency == "EUR" %}selected{% endif %}>EUR</option>
-        <option value="TND" {% if to_currency == "TND" %}selected{% endif %}>TND</option>
-        <option value="AFN" {% if to_currency == "AFN" %}selected{% endif %}>AFN</option>
-        <option value="CDF" {% if to_currency == "CDF" %}selected{% endif %}>CDF</option>
-    </select>
+    <!-- World globe illustration -->
+    {% include "globe.html" %}
 
-    <label for="amount">Amount:</label>
-    <input
-        type="number"
-        name="amount"
-        id="amount"
-        step="0.01"
-        value="{{ amount if amount else '' }}"
-        required
-    >
+</section>
 
-    <button type="submit">Convert</button>
+<!-- Error message -->
+{% if error %}
+<div class="error-message">
+    {{ error }}
+</div>
+{% endif %}
 
-</form>
+<!-- Currency converter -->
+<section class="converter-card">
 
-{% if show_result %}
+    <div class="converter-header">
+        <p class="page-label">CONVERT CURRENCY</p>
+    </div>
 
-    <h3>Your selection</h3>
+    <form method="POST" action="/" class="converter-form">
 
-    <p>
-        {{ amount }} {{ from_currency }}
-        →
-        {{ to_currency }}
-    </p>
+        <div class="form-group">
+            <label for="from_currency">From</label>
 
-    <a href="/history?from={{ from_currency }}&to={{ to_currency }}">
-        View exchange rate history
-    </a>
+            <select name="from_currency" id="from_currency">
+                {% for currency in ["SEK", "USD", "EUR", "TND", "AFN", "CDF"] %}
+                <option value="{{ currency }}"
+                    {% if from_currency == currency %}selected{% endif %}>
+                    {{ currency }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
 
+        <div class="currency-arrow" aria-hidden="true">⇄</div>
+
+        <div class="form-group">
+            <label for="to_currency">To</label>
+
+            <select name="to_currency" id="to_currency">
+                {% for currency in ["EUR", "SEK", "USD", "TND", "AFN", "CDF"] %}
+                <option value="{{ currency }}"
+                    {% if to_currency == currency %}selected{% endif %}>
+                    {{ currency }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group amount-group">
+            <label for="amount">Amount</label>
+
+            <input
+                type="number"
+                name="amount"
+                id="amount"
+                step="0.01"
+                min="0.01"
+                placeholder="1000"
+                value="{{ amount if amount is not none else '' }}"
+                required
+            >
+        </div>
+
+        <button type="submit" class="convert-button">
+            Convert <span aria-hidden="true">→</span>
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Conversion result -->
+{% if show_result and converted_amount is defined and converted_amount is not none %}
+<section class="result-card">
+
+    <div class="result-top">
+        <p class="page-label">CONVERSION RESULT</p>
+    </div>
+
+    <div class="result-content">
+
+        <div>
+            <p class="result-amount">
+                {{ amount }} {{ from_currency }}
+                =
+                {{ "%.2f"|format(converted_amount|float) }} {{ to_currency }}
+            </p>
+
+            <p class="result-currency">
+                From {{ from_currency }} to {{ to_currency }}
+            </p>
+
+            {% if exchange_rate is defined and exchange_rate is not none %}
+            <p class="result-note">
+                1 {{ from_currency }} =
+                {{ exchange_rate }} {{ to_currency }}
+            </p>
+            {% endif %}
+        </div>
+
+        <a
+            href="{{ url_for('history', from=from_currency, to=to_currency) }}"
+            class="history-link">
+            View history →
+        </a>
+
+    </div>
+
+</section>
+{% endif %}
+
+<!-- Feature highlights -->
+<section class="features">
+
+    <div class="feature">
+        <div class="feature-icon">↗</div>
+
+        <div>
+            <h3>Exchange Rates</h3>
+            <p>Explore rates across multiple currencies.</p>
+        </div>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">⌁</div>
+
+        <div>
+            <h3>Historical Data</h3>
+            <p>Discover how exchange rates change over time.</p>
+        </div>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">◷</div>
+
+        <div>
+            <h3>Market Insights</h3>
+            <p>View trends, averages and currency movements.</p>
+        </div>
+    </div>
+
+</section>
+
+<!-- Explore history -->
+<section class="converter-info">
+
+    <div>
+        <p class="page-label">EXPLORE MORE</p>
+
+        <h2>Understand currency movements.</h2>
+
+        <p>
+            Explore historical trends, compare currencies
+            and discover insights through clear data.
+        </p>
+
+        <a href="{{ url_for('history') }}" class="explore-link">
+            Explore historical rates →
+        </a>
+    </div>
+
+</section>
+
+<!-- Scroll to conversion result -->
+{% if show_result and converted_amount is defined and converted_amount is not none %}
+<script>
+    window.addEventListener("load", function () {
+        const result = document.querySelector(".result-card");
+
+        if (result) {
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+    });
+</script>
 {% endif %}
 
 {% endblock %}

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,34 +6,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Currency Dashboard</title>
+    <title>Currency Converter</title>
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <nav>
-        <a href="{{ url_for('home') }}">
-            Currency Dashboard
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span class="brand-mark">C</span>
+            <span class="brand-name">Currency Converter</span>
         </a>
 
-        <a href="{{ url_for('home') }}">
-            Converter
-        </a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Converter</a>
+            <a href="{{ url_for('history') }}">History</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </div>
 
-        <a href="{{ url_for('history') }}">
-            History
-        </a>
-
-        <a href="{{ url_for('about') }}">
-            About
-        </a>
     </nav>
 
+    <!-- Page content -->
     <main>
         {% block content %}
         {% endblock %}
