@@ -1,39 +1,60 @@
-#Valutadashboard
-# Dataanalys – Pandas
+# Nejma – Dataanalys och datavisualisering
 
-Vi använder Pandas för att bearbeta och analysera historiska valutakurser som hämtas från Frankfurter API.
+## Dataanalys – analysis.py
 
-Dataanalysen finns i `currency_dashboard/analysis.py` och innehåller fyra funktioner:
+Den här modulen använder Pandas för att bearbeta och analysera historiska valutakurser som hämtas från Frankfurter API.
 
-- `create_dataframe()` – Omvandlar historiska valutakurser till en DataFrame med datum och valutakurs.
-- `percentage_change()` – Beräknar den procentuella förändringen mellan två valutakurser.
-- `monthly_average()` – Grupperar valutakurser per månad med `groupby()` och beräknar månadsmedelvärdet.
-- `highest_and_lowest_rate()` – Tar fram den högsta och lägsta valutakursen under perioden.
+### Funktioner
 
-## Datavisualisering – Plotly
+1. `create_dataframe(historical_data)` – Omvandlar historiska valutakurser till en Pandas DataFrame med kolumnerna `date` och `rate`. Funktionen kan hantera data i form av en lista eller en dictionary.
 
-Vi använder Plotly för att visualisera resultaten från dataanalysen.
+2. `percentage_change(start_rate, end_rate)` – Beräknar den procentuella förändringen mellan två valutakurser. Resultatet avrundas till två decimaler.
 
-Diagrammen skapas i `currency_dashboard/charts.py`:
+3. `monthly_average(df)` – Omvandlar datum till rätt datumformat, grupperar valutakurserna per månad med `groupby()` och beräknar medelvärdet för varje månad.
 
-- **Linjediagram:** Visar valutakursens historiska utveckling.
-- **Stapeldiagram:** Visar den genomsnittliga valutakursen per månad.
+4. `highest_and_lowest_rate(df)` – Tar fram den högsta och lägsta valutakursen under den valda perioden.
 
-Funktionen `style_chart()` används för att ge diagrammen en gemensam design.
+## Datavisualisering – charts.py
+
+Den här modulen använder Plotly för att skapa diagram som visualiserar historiska valutakurser och resultat från dataanalysen.
+
+### Funktioner
+
+1. `style_chart(fig)` – Anpassar diagrammens utseende med gemensamma färger, typsnitt, bakgrund och axelinställningar.
+
+2. `create_history_chart(df)` – Skapar ett linjediagram som visar hur valutakursen förändras över tid.
+
+3. `create_monthly_average_chart(monthly_data)` – Skapar ett stapeldiagram som visar den genomsnittliga valutakursen per månad.
 
 Diagrammen omvandlas till HTML med `fig.to_html()` och visas på History-sidan i Flask-applikationen.
 
-## Testning – Pandas och Plotly
+## Kontrollera koden
 
-Vi använder Pytest för att kontrollera att funktionerna ger förväntade resultat.
+Vi använder Ruff för att kontrollera kodstil och formatering samt Pytest för att testa funktionerna.
 
-- `tests/test_analysis.py` innehåller fem tester för dataanalysen.
-- `tests/test_charts.py` innehåller två tester för diagrammen.
+Kontrollera kodstilen:
 
-Testerna kontrollerar bland annat procentuell förändring, månadsmedelvärden, högsta och lägsta valutakurs samt att Plotly skapar HTML med rätt axeltexter.
+```bash
+ruff check currency_dashboard/analysis.py currency_dashboard/charts.py tests/test_analysis.py tests/test_charts.py
+```
 
-För att köra testerna:
+Kontrollera formateringen:
+
+```bash
+ruff format --check currency_dashboard/analysis.py currency_dashboard/charts.py tests/test_analysis.py tests/test_charts.py
+```
+
+Kör testerna:
 
 ```bash
 python -m pytest tests/test_analysis.py tests/test_charts.py -v
 ```
+
+## Tester
+
+Testerna finns i två filer:
+
+- `tests/test_analysis.py` – Innehåller fem tester som kontrollerar att dataanalysen ger förväntade resultat, bland annat procentuell förändring, månadsmedelvärde samt högsta och lägsta valutakurs.
+- `tests/test_charts.py` – Innehåller två tester som kontrollerar att Plotly skapar HTML med rätt axeltexter och diagramfärg.
+
+Totalt innehåller dessa två testfiler sju tester. Testerna använder exempeldata och behöver inga API-anrop.
