@@ -1,3 +1,4 @@
+#Valutadashboard
 # Dataanalys – Pandas
 
 Vi använder Pandas för att bearbeta och analysera historiska valutakurser som hämtas från Frankfurter API.
