@@ -6,10 +6,7 @@ def create_dataframe(historical_data):
         df = pd.DataFrame(historical_data)
         df = df[["date", "rate"]]
     else:
-        df = pd.DataFrame(
-            list(historical_data.items()),
-            columns=["date", "rate"]
-        )
+        df = pd.DataFrame(list(historical_data.items()), columns=["date", "rate"])
 
     return df
 

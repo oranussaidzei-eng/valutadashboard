@@ -1,4 +1,3 @@
-
 import plotly.express as px
 
 NAVY = "#172B45"
@@ -13,12 +12,8 @@ def style_chart(fig):
         template="plotly_white",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(
-            family="Arial, sans-serif",
-            size=12,
-            color=TEXT
-        ),
-        margin=dict(l=35, r=25, t=25, b=40),
+        font={"family": "Arial, sans-serif", "size": 12, "color": TEXT},
+        margin={"l": 35, "r": 25, "t": 25, "b": 40},
         hovermode="x unified",
         showlegend=False,
         height=390,
@@ -29,8 +24,8 @@ def style_chart(fig):
         showgrid=False,
         showline=False,
         ticks="",
-        tickfont=dict(color=MUTED),
-        title_font=dict(color=MUTED),
+        tickfont={"color": MUTED},
+        title_font={"color": MUTED},
         automargin=True,
     )
 
@@ -40,8 +35,8 @@ def style_chart(fig):
         zeroline=False,
         showline=False,
         ticks="",
-        tickfont=dict(color=MUTED),
-        title_font=dict(color=MUTED),
+        tickfont={"color": MUTED},
+        title_font={"color": MUTED},
         automargin=True,
     )
 
@@ -61,10 +56,8 @@ def create_history_chart(df):
     )
 
     fig.update_traces(
-        line=dict(color=NAVY, width=2.5),
-        hovertemplate=(
-            "%{x}<br>Rate: %{y:.5f}<extra></extra>"
-        ),
+        line={"color": NAVY, "width": 2.5},
+        hovertemplate=("%{x}<br>Rate: %{y:.5f}<extra></extra>"),
     )
 
     style_chart(fig)
@@ -94,9 +87,7 @@ def create_monthly_average_chart(monthly_data):
         marker_color=NAVY,
         marker_line_width=0,
         opacity=0.9,
-        hovertemplate=(
-            "%{x}<br>Average: %{y:.5f}<extra></extra>"
-        ),
+        hovertemplate=("%{x}<br>Average: %{y:.5f}<extra></extra>"),
     )
 
     style_chart(fig)
