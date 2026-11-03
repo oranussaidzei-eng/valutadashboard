@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Currency Converter</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span class="brand-mark">C</span>
+            <span class="brand-name">Currency Converter</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Converter</a>
+            <a href="{{ url_for('history') }}">History</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </div>
+
+    </nav>
+
+    <!-- Page content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+
+        <p>
+            Datakälla:
+            <a href="https://frankfurter.dev/">Frankfurter API</a>
+        </p>
+    </main>
+
+</body>
+
+</html>

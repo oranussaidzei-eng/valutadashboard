@@ -1,0 +1,108 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Page heading -->
+<section class="history-header">
+    <p class="page-label">CURRENCY INSIGHTS</p>
+
+    <h1>{{ from_currency }} → {{ to_currency }}</h1>
+
+    <p class="page-description">
+        Explore exchange rate trends and historical performance.
+    </p>
+</section>
+
+<!-- Statistics -->
+<section class="stats-grid">
+
+    <div class="stat-card">
+        <p>Latest Rate</p>
+        <h2>
+            {% if current_rate is not none %}
+                {{ "%.4f"|format(current_rate) }}
+            {% else %}
+                —
+            {% endif %}
+        </h2>
+        <span>{{ from_currency }} → {{ to_currency }}</span>
+    </div>
+
+    <div class="stat-card">
+        <p>Highest Rate</p>
+        <h2>
+            {% if highest_rate is not none %}
+                {{ "%.4f"|format(highest_rate) }}
+            {% else %}
+                —
+            {% endif %}
+        </h2>
+        <span>Highest rate in selected period</span>
+    </div>
+
+    <div class="stat-card">
+        <p>Lowest Rate</p>
+        <h2>
+            {% if lowest_rate is not none %}
+                {{ "%.4f"|format(lowest_rate) }}
+            {% else %}
+                —
+            {% endif %}
+        </h2>
+        <span>Lowest rate in selected period</span>
+    </div>
+
+    <div class="stat-card">
+        <p>Rate Change</p>
+        <h2>
+            {% if change is not none %}
+                {{ "%+.2f"|format(change) }}%
+            {% else %}
+                —
+            {% endif %}
+        </h2>
+        <span>Change over selected period</span>
+    </div>
+
+</section>
+
+<!-- Historical chart -->
+<section class="chart-card">
+
+    <div class="chart-header">
+        <p class="page-label">HISTORICAL TRENDS</p>
+
+        <h2>Exchange Rate History</h2>
+
+        <p>Track currency movements over time.</p>
+    </div>
+
+    {% if chart %}
+        {{ chart | safe }}
+    {% else %}
+        <p>Exchange rate history is currently unavailable.</p>
+    {% endif %}
+
+</section>
+
+<!-- Monthly chart -->
+<section class="chart-card">
+
+    <div class="chart-header">
+        <p class="page-label">MONTHLY OVERVIEW</p>
+
+        <h2>Monthly Averages</h2>
+
+        <p>Compare average exchange rates month by month.</p>
+    </div>
+
+    {% if monthly_chart %}
+        {{ monthly_chart | safe }}
+    {% else %}
+        <p>Monthly exchange rate data is currently unavailable.</p>
+    {% endif %}
+
+</section>
+
+{% endblock %}
