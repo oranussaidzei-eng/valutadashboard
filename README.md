@@ -4,6 +4,8 @@ En Flask-app för valutaomvandling som hämtar kurser från Frankfurter API och 
 
 ## Installation
 
+Öppna en terminal i projektets rotmapp, där requirements.txt finns.
+
 1. Skapa en venv: `py -m venv venv`
 2. Aktivera den: `venv/Scripts/activate`
 3. Installera paketen: `pip install -r requirements.txt -r requirements-dev.txt`
@@ -27,6 +29,14 @@ py -m pytest tests/test_app.py
 
 Flask-testerna körs utan nätverk. API-anropen ersätts med mockade svar.
 
+## Kontrollera hela projektet
+
+```powershell
+ruff check .
+ruff format .
+py -m pytest -v
+```
+
 ## Paketering
 
 ```powershell
@@ -36,25 +46,30 @@ py -m build
 
 Paketfilerna skapas i `dist/`. Python-koden, HTML-mallarna och CSS-filen följer med.
 
-# API-modulen - currency_api.py
-Detta är en modul som är en del av Flask-appen som hämtar valutakurser från Frankfurter API och skickar dem vidare, visar även aktuell och historiska kurser.   
+## API-dokumentation
 
+[Frankfurter API – dokumentation](https://frankfurter.dev/)
+
+# API-modulen - currency_api.py
+
+Detta är en modul som är en del av Flask-appen som hämtar valutakurser från Frankfurter API och skickar dem vidare, visar även aktuell och historiska kurser.
 
 ## Funktioner
 
 1. `hämta_valutakurs(från_valuta, till_valuta, datum=None)`
     Hämtar kursen mellan två valutor, utan datum hämtas dagens kurs. Med datum hämtas kursen för det datumet. Returnerar kursen som ett decimaltal t.ex. 11.05 eller `None` vid fel.
 
-2. `hämta_tidsserie(från_valuta, till_valuta, startdatum, slutdatum)` 
+2. `hämta_tidsserie(från_valuta, till_valuta, startdatum, slutdatum)`
     Funktionen hämtar valutakursen mellan två valutor för varje dag, mellan startdatum och slutdatum. Funktionen returnerar en lista med dictionaries med kursens tidsserie, en per dag med datum och kurs eller `None` vid fel.
 
-
 ## Kontrollera koden
+
+```powershell
+ruff check currency_dashboard/currency_api.py tests/test_currency_api.py
+ruff format --check currency_dashboard/currency_api.py tests/test_currency_api.py
+py -m pytest tests/test_currency_api.py
 ```
-ruff check currency_api.py tests/test_currency_api.py
-ruff format --check currency_api.py tests/test_currency_api.py
-py -m pytest tests/test_currency_api.py 
-```
+
 I testerna ersätts `requests.get` med en mock så att testerna körs utan nätverk och att vi kan testa felfall.
 
 # Nejma – Dataanalys och datavisualisering
@@ -116,4 +131,4 @@ Testerna finns i två filer:
 - `tests/test_analysis.py` – Innehåller fem tester som kontrollerar att dataanalysen ger förväntade resultat, bland annat procentuell förändring, månadsmedelvärde samt högsta och lägsta valutakurs.
 - `tests/test_charts.py` – Innehåller två tester som kontrollerar att Plotly skapar HTML med rätt axeltexter och diagramfärg.
 
-Totalt innehåller dessa två testfiler sju tester. Testerna använder exempeldata och behöver inga API-anrop
+Totalt innehåller dessa två testfiler sju tester. Testerna använder exempeldata och behöver inga API-anrop.
